@@ -13,7 +13,7 @@ var SlideShow = Class.create((function(){
     this.element = $(element).store('slideshow', this);
     this.options = defaultOptions;
     Object.extend(this.options, options);
-    this.effectOptions = { duration: this.options.transitionDuration };
+    this.effectOptions = { duration: this.options.transitionDuration, engine: 'javascript' };
     this.i = 0;
     this.slides = $$('#' + this.element.identify() + this.options.slidesSelector);
     this.effects = {};
