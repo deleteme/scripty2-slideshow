@@ -1,0 +1,12 @@
+h1. Scripty2 SlideShow
+
+This is a rewrite of http://github.com/deleteme/prototype-slideshow to be more lean and utilize the new Scripty2 JavaScript animation library.
+
+
+h1. Usage
+
+yourContainerSlideShowElement.makeSlideShow([options]);
+
+or
+
+new SlideShow(yourContainerSlideShowElement[, options])
