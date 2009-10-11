@@ -16,7 +16,7 @@ var SlideShow = Class.create((function(){
     this.effectOptions = { duration: this.options.transitionDuration };
     this.i = 0;
     this.slides = $$('#' + this.element.identify() + this.options.slidesSelector);
-    
+    this.effects = {};
     (function(){
       if (this.options.startHidden) {
         return this.slides;
@@ -52,17 +52,25 @@ var SlideShow = Class.create((function(){
       this.stop();
       return;
     }
-    /*
-      TODO make it bullet proof: figure out how to finish effects
-    */
-    this.getSlide().fade(this.effectOptions);
+    if (this.effects.fade) this.effects.fade.finish();
+    if (this.effects.appear) this.effects.appear.finish();
+    
+    this.effects.fade = new S2.FX.Morph(this.getSlide(), Object.extend({
+      style: 'opacity:0',
+      after: Element.hide.curry(this.getSlide())
+    }, this.effectOptions)).play();
+    
     if (this.atEdge(dir)){
       this.i = (dir == 1)? 0 : this.slides.length - 1;
       fire('looped', this);
     } else {
       this.i += dir;
     }
-    this.getSlide().show().appear(this.effectOptions);
+    this.effects.appear = new S2.FX.Morph(this.getSlide(), Object.extend({
+      before: function(){ this.getSlide().show().setStyle({opacity: 0}); }.bind(this),
+      style:  'opacity:1'
+    }, this.effectOptions)).play();
+    
     fire('cycled', this);
   }
   
@@ -85,8 +93,9 @@ Element.addMethods({
   }
 });
 
-$w('cycled started stopped initialized looped').each(function(s){
-  document.observe('slideshow:' + s, function(e){
-    console.log(s);
-  });
-});
+// $w('cycled started stopped initialized looped').each(function(s){
+//   document.observe('slideshow:' + s, function(e){
+//     console.log(s);
+//   });
+// });
+
