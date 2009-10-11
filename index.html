@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+  
+  <title>scripty2 slideshow</title>
+  <link rel="stylesheet" href="stylesheets/styles.css" type="text/css" media="screen" />
+  
+</head>
+
+<body>
+
+<ul id="slideshow"></ul>
+
+<ul id="controls">
+  <li><a id="previous" href="#previous">Previous</a></li>
+  <li><a id="next" href="#next">Next</a></li>
+  <li><a id="play" href="#play">Play</a></li>
+  <li><a id="stop" href="#stop">Stop</a></li>
+</ul>
+
+<script src="javascripts/prototype.js"></script>
+<script src="javascripts/s2.js"></script>
+<script src="javascripts/s2-slideshow.js"></script>
+
+<script>
+  
+  document.observe('dom:loaded', function(){
+    
+    // $w('one two three four five six seven eight nine ten').each(function(n){
+    //   $('slideshow').insert('<li><a href="##{n}">#{n}</a></li>'.interpolate({ n: n }));
+    // });
+    
+    $w('one two three four').each(function(n){
+      $('slideshow').insert('<li><a href="##{n}">#{n}</a></li>'.interpolate({ n: n }));
+    });
+    
+    $('slideshow').makeSlideShow();
+    
+    var slideshow = $('slideshow').retrieve('slideshow');
+    
+    $$('#controls a').each(function(a){
+      a.observe('click', function(e){
+        slideshow[a.identify()]();
+        a.blur();
+        e.stop();
+      });
+    });
+    
+    // console.log(slideshow);
+    
+  });
+
+</script>
+
+</body>
+</html>
