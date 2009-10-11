@@ -52,8 +52,12 @@ var SlideShow = Class.create((function(){
       this.stop();
       return;
     }
-    if (this.effects.fade) this.effects.fade.finish();
-    if (this.effects.appear) this.effects.appear.finish();
+    if (this.effects.fade && this.effects.fade.state == 'running') {
+      this.effects.fade.finish();
+    }
+    if (this.effects.appear && this.effects.appear.state == 'running') {
+      this.effects.appear.finish();
+    }
     
     this.effects.fade = new S2.FX.Morph(this.getSlide(), Object.extend({
       style: 'opacity:0',
