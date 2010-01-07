@@ -25,24 +25,32 @@
 
 <script>
   
+  // when the DOM is ready for behavior
   document.observe('dom:loaded', function(){
     
+    // grab a reference to the root slideshow element
+    var slideshowElement = $('slideshow');
+    
+    // write out the slides inside of the element
     $w('one two three four five six seven eight nine ten').each(function(n){
-      $('slideshow').insert('<li><a href="##{n}">#{n}</a></li>'.interpolate({ n: n }));
+      slideshowElement.insert('<li><a href="##{n}">#{n}</a></li>'.interpolate({ n: n }));
     });
     
-    $('slideshow').makeSlideShow();
-    
-    var slideshow = $('slideshow').retrieve('slideshow');
-    $('slideshow').observe('click', function(e){
+    // turn the element and it's children into a slideshow
+    // and make a variable referencing the slideshow
+    var slideshow = slideshowElement.makeSlideShow().retrieve('slideshow');
+     
+    // when the slideshow element is clicked, advance to the next slide
+    slideshowElement.observe('click', function(e){
       e.findElement().blur();
       e.stop();
       slideshow.next();
     });
     
+    // setup behavior of previous/next/play/stop links
     $$('#controls a').each(function(a){
       a.observe('click', function(e){
-        slideshow[a.identify()]();
+        slideshow[a.id]();
         a.blur();
         e.stop();
       });
