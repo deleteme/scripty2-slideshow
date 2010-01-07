@@ -31,10 +31,6 @@
       $('slideshow').insert('<li><a href="##{n}">#{n}</a></li>'.interpolate({ n: n }));
     });
     
-    // $w('one two three four').each(function(n){
-    //   $('slideshow').insert('<li><a href="##{n}">#{n}</a></li>'.interpolate({ n: n }));
-    // });
-    
     $('slideshow').makeSlideShow();
     
     var slideshow = $('slideshow').retrieve('slideshow');
@@ -43,6 +39,7 @@
       e.stop();
       slideshow.next();
     });
+    
     $$('#controls a').each(function(a){
       a.observe('click', function(e){
         slideshow[a.identify()]();
@@ -50,8 +47,6 @@
         e.stop();
       });
     });
-    
-    // console.log(slideshow);
     
   });
 
