@@ -21,7 +21,7 @@ var SlideShow = Class.create((function(){
       if (this.options.startHidden) {
         return this.slides;
       } else {
-        return this.slides.without(this.slides[0].show().setStyle('position:absolute'));
+        return this.slides.without(this.slides[0].show().setStyle('position: absolute'));
       }
     }.bind(this)()).invoke('setStyle', 'display: none; opacity: 0; position: absolute');
     if (this.options.startHidden) this.slides[0].appear(this.effectOptions);
