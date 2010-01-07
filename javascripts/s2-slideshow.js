@@ -60,7 +60,7 @@ var SlideShow = Class.create((function(){
     }
     
     this.effects.fade = new S2.FX.Morph(this.getSlide(), Object.extend({
-      style: 'opacity:0',
+      style: 'opacity: 0',
       after: Element.hide.curry(this.getSlide())
     }, this.effectOptions)).play();
     
@@ -72,7 +72,7 @@ var SlideShow = Class.create((function(){
     }
     this.effects.appear = new S2.FX.Morph(this.getSlide(), Object.extend({
       before: function(){ this.getSlide().show().setStyle({opacity: 0}); }.bind(this),
-      style:  'opacity:1'
+      style:  'opacity: 1'
     }, this.effectOptions)).play();
     
     fire('cycled', this);
